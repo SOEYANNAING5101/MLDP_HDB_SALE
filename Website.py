@@ -55,13 +55,6 @@ df = user_input_features()
 
 st.subheader('User Input Parameters')
 st.write(df)
-# st.write(f"**Town:** {df['town'][0]}")
-# st.write(f"**Flat Type:** {df['flat_type'][0]}")
-# st.write(f"**Flat Model:** {df['flat_model'][0]}")
-# st.write(f"**Storey Range:** {df['storey_range'][0]}")
-# st.write(f"**Floor Area (sqm):** {df['floor_area_sqm'][0]} sqm")
-# st.write(f"**House Age (years):** {df['house_age'][0]} years")
-
 def preprocess_input(input_df):
     categorical_features = ['town', 'flat_type','flat_model', 'storey_range']
     input_df = pd.get_dummies(input_df, columns=categorical_features)
@@ -94,16 +87,14 @@ fig.update_layout(
     showlegend=False
 )
 
-# Show model feature importance
 st.subheader("Model Feature Importance")
 importances = model.feature_importances_
-features = model_columns  # Assuming this list contains the feature names in the order of importance
+features = model_columns  
 
-# Create a DataFrame for feature importance
+
 importance_df = pd.DataFrame({"Feature": features, "Importance": importances})
 importance_df = importance_df.sort_values(by="Importance", ascending=False)
 
-# Plot the feature importances
 fig2 = px.bar(importance_df, x="Feature", y="Importance", title="Feature Importance")
 st.plotly_chart(fig2)
 
